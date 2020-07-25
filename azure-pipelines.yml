@@ -22,10 +22,10 @@ steps:
     # | = multi line commands
   - script: |
       # variables are specified using '$' then (*variable name*)
-      cd 
+      cd $(rootDir)
       npm install
       npm run build
-      #cd ..
+      cd ..
     displayName: 'npm install and build'
 
 #--------------zip project--------------------------
