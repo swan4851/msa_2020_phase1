@@ -25,7 +25,7 @@ steps:
       #cd $(rootDir)
       npm install
       npm run build
-      cd ..
+      #cd ..
     displayName: 'npm install and build'
 
 #--------------zip project--------------------------
