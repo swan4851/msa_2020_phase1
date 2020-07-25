@@ -22,16 +22,16 @@ steps:
     # | = multi line commands
   - script: |
       # variables are specified using '$' then (*variable name*)
-      cd $(rootDir)
+      #cd $(rootDir)
       npm install
       npm run build
-      cd ..
+      #cd ..
     displayName: 'npm install and build'
 
 #--------------zip project--------------------------
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(buildDir)'
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
