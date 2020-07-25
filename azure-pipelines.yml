@@ -11,7 +11,7 @@ pool:
 
 variables:
   rootDir: 'my-app'
-  buildDir: '$(rootDir)/build'
+  buildDir: '/build'
 
 steps:
   - task: NodeTool@0
@@ -22,7 +22,7 @@ steps:
     # | = multi line commands
   - script: |
       # variables are specified using '$' then (*variable name*)
-      cd $(rootDir)
+      #cd $(rootDir)
       npm install
       npm run build
       cd ..
