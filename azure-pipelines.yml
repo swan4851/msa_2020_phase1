@@ -9,9 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# variables:
-#   rootDir: 'my-app'
-#   buildDir: '$(rootDir)/build'
+variables:
+  rootDir: 'my-app'
+  buildDir: '$(rootDir)/build'
 
 steps:
   - task: NodeTool@0
