@@ -9,11 +9,49 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+# variables:
+#   rootDir: 'my-app'
+#   buildDir: '$(rootDir)/build'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+    
+    # | = multi line commands
+  - script: |
+      # variables are specified using '$' then (*variable name*)
+      cd $(rootDir)
+      npm install
+      npm run build
+      cd ..
+    displayName: 'npm install and build'
+
+#--------------zip project--------------------------
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(buildDir)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+#------publish zip so pipeline can access it--------
+  - task: PublishBuildArtifacts@1 #publish zip so pipeline can access it
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+#------------------------original---------------------------
+# steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
+
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
+#--------------------------------------------------------
+
