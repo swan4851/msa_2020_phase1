@@ -11,7 +11,7 @@ pool:
 
 variables:
   rootDir: 'my-app'
-  buildDir: '/build'
+  buildDir: '$(rootDir)/build'
 
 steps:
   - task: NodeTool@0
@@ -31,7 +31,7 @@ steps:
 #--------------zip project--------------------------
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(buildDir)/build'
+      rootFolderOrFile: '$(buildDir)'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
