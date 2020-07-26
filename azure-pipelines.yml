@@ -9,9 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# variables:
-#   rootDir: 'my-app'
-#   buildDir: '/build'
+variables:
+  rootDir: 'my-app'
+  buildDir: '/build'
 
 steps:
   - task: NodeTool@0
@@ -22,16 +22,16 @@ steps:
     # | = multi line commands
   - script: |
       # variables are specified using '$' then (*variable name*)
-      #cd $(rootDir)
+      cd $(rootDir)
       npm install
       npm run build
-      #cd ..
+      cd ..
     displayName: 'npm install and build'
 
 #--------------zip project--------------------------
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
+      rootFolderOrFile: '$(buildDir)/build'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
